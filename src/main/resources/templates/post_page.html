@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор с post</title>
+</head>
+<body>
+        <h1>Калькулятор с post</h1>
+        <form action="/Post" method="post">
+        <input type="number" name="num1_post" value="num1_post" th:value="${num1_post}"><br>
+        <label for="action">Выберите действие:</label>
+        <select name="action" id="action">
+            <option value="plus">+</option>
+            <option value="minus">-</option>
+            <option value="multiply">*</option>
+            <option value="divide">/</option>
+        </select>
+        <br>
+        <input type="number" name="num2_post" th:value="${num2_post}">
+        <br>
+        <label>Получилось:</label>
+        <label th:text="${num_answer_post}"></label>
+        <br>
+        <button type="submit">Посчитать</button>
+            <br> <a href="/Get?num1_get=1&num2_get=1&action=plus">Перейти на калькулятор Get</a></br>
+</body>
+</html>
