@@ -40,7 +40,7 @@ public class MainController {
     }
 
     @GetMapping("/Get")
-    public String numGet(@RequestParam(required = false) float num1_get, float num2_get, String action, Model model) {
+    public String calc_Get(@RequestParam(required = false) float num1_get, float num2_get, String action, Model model) {
         switch(action){
             case "plus":
                 num_get = num1_get + num2_get;
