@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Домашняя страница</title>
+    <title>Добавление звёзд</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
@@ -10,6 +10,7 @@
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 link-secondary">Дом и точка</a></li>
                 <li><a href="/star/" class="nav-link px-2 link-dark">Звезды и точка</a></li>
@@ -38,6 +39,15 @@
 </header>
 
 
-<a href="/star/" class="btn btn-success">перейти</a>
+<h1>Добавление звёзд</h1>
+<form method="post">
+    <p th:text="Название"></p>
+    <input class="form-control" type="text" name="name">
+    <p th:text="Класс"></p>
+    <input class="form-control" type="text" name="class_star">
+    <p th:text="Люмен"></p>
+    <input class="form-control" type="number" name="lumen">
+    <input type="submit" value="Добавить звезду">
+</form>
 </body>
 </html>
