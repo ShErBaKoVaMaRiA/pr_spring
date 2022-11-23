@@ -15,26 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PlanetController {
     @Autowired
     PlanetRepository planetRepository;
-
     @GetMapping("/")
     public String index(Model model){
         Iterable<Planet> planetIterable = planetRepository.findAll();
         model.addAttribute("planet_list", planetIterable);
-        return "planet/index";
-    }
-
+        return "planet/index";}
     @PostMapping("/planet-add/")
     public String AddPlanet(
             @RequestParam(name="name_planet") String name_planet,
             @RequestParam(name="weight_planet") float weight_planet,
             @RequestParam(name="sputnik_planet") String sputnik_planet,
             @RequestParam(name="rotation_period") String rotation_period,
-            @RequestParam(name="temperature") float temperature
-    ){
+            @RequestParam(name="temperature") float temperature){
         Planet new_planet = new Planet(name_planet, weight_planet, sputnik_planet,rotation_period,temperature);
         planetRepository.save(new_planet);
-        return "planet/planet-add";
-    }
+        return "planet/planet-add";}
     @GetMapping("/planet-add/")
     public String AddView(){
         return "planet/planet-add";

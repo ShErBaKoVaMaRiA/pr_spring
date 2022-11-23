@@ -11,7 +11,6 @@ public class Star {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
-
     private String name;
     private String class_star;
     private Integer lumen;

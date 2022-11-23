@@ -11,7 +11,6 @@ public class Meteor {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
-
     private String name_meteor;
     private String class_meteor;
     private String location_meteor;

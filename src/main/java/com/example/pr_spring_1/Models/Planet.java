@@ -11,7 +11,6 @@ public class Planet {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
-
     private String name_planet;
     private float weight_planet;
     private String sputnik_planet;

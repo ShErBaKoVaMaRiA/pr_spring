@@ -15,26 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MeteorController {
     @Autowired
     MeteorRepository meteorRepository;
-
     @GetMapping("/")
     public String index(Model model){
         Iterable<Meteor> meteorIterable = meteorRepository.findAll();
         model.addAttribute("meteor_list", meteorIterable);
-        return "meteor/index";
-    }
-
+        return "meteor/index";}
     @PostMapping("/meteor-add/")
-    public String AddMeteor(
-              @RequestParam(name="name_meteor") String name_meteor,
+    public String AddMeteor(@RequestParam(name="name_meteor") String name_meteor,
               @RequestParam(name="class_meteor") String class_meteor,
               @RequestParam(name="location_meteor") String location_meteor,
               @RequestParam(name="weight") String weight,
-              @RequestParam(name="color_meteor") String color_meteor
-    ){
-          Meteor new_meteor = new Meteor(name_meteor, class_meteor, location_meteor,weight,color_meteor);
+              @RequestParam(name="color_meteor") String color_meteor)
+    {Meteor new_meteor = new Meteor(name_meteor, class_meteor, location_meteor,weight,color_meteor);
         meteorRepository.save(new_meteor);
-        return "meteor/meteor-add";
-    }
+        return "meteor/meteor-add";}
     @GetMapping("/meteor-add/")
     public String AddView(){
         return "meteor/meteor-add";
