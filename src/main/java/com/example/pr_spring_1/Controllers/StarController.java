@@ -66,10 +66,22 @@ public class StarController {
         //starRepository.deleteById(id);
         return "redirect:/star/";
     }
-    @PostMapping ("/detail/{id}/upd")
+    @GetMapping ("/detail/{id}/upd")
     public String  updateView(@PathVariable Long id,Model model)
     {
         model.addAttribute("object",starRepository.findById(id).orElseThrow());
-        return "star/update";
+        return "star/star-update";
+    }
+    @PostMapping ("/detail/{id}/upd")
+    public String  update(@PathVariable Long id,@RequestParam String name, @RequestParam String class_star, Integer lumen)
+    {
+        Star star = starRepository.findById(id).orElseThrow();
+
+        star.setName(name);
+        star.setClass_star(class_star);
+        star.setLumen(lumen);
+
+        starRepository.save(star);
+        return "redirect:/star/detail/"+star.getUID();
     }
 }

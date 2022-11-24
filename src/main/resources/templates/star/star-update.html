@@ -9,16 +9,17 @@
 
 <header th:insert="/fragments/header :: header_starMain"></header>
 
-
+<div class="container">
 <h1>Редактирование звезды</h1>
 <form method="post">
-    <p th:text="Название"></p>
-    <input class="form-control" type="text" name="name">
-    <p th:text="Класс"></p>
-    <input class="form-control" type="text" name="class_star">
-    <p th:text="Люмен"></p>
-    <input class="form-control" type="number" name="lumen">
-    <input type="submit" value="Добавить звезду">
+    <label>Название</label>
+    <input th:value="${object.name}" class="form-control" type="text" name="name">
+    <label>Класс</label>
+    <input th:value="${object.class_star}" class="form-control" type="text" name="class_star">
+    <label>Яркость</label>
+    <input th:value="${object.lumen}" class="form-control" type="number" name="lumen">
+    <input class="btn btn-success" type="submit" value="Редактировать данные звезды">
 </form>
+</div>
 </body>
 </html>
