@@ -73,7 +73,7 @@ public class StarController {
         return "star/star-update";
     }
     @PostMapping ("/detail/{id}/upd")
-    public String  update(@PathVariable Long id,@RequestParam String name, @RequestParam String class_star, Integer lumen)
+    public String  update(@PathVariable Long id,@RequestParam String name, @RequestParam String class_star, @RequestParam Integer lumen)
     {
         Star star = starRepository.findById(id).orElseThrow();
 

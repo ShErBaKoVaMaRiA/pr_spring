@@ -9,7 +9,18 @@
 <header th:insert="/fragments/header :: headerMain"></header>
 
 <h1>Список метеоритов</h1>
+<div class="container">
+    <form method="get" action="/meteor/filter/">
+        <input class="form-control" name="name_meteor" type="text">
+        <input class="btn btn-info" type="submit" value="Найти">
+    </form>
+    <form method="get" action="/meteor/filtercontains/">
+        <input class="form-control" name="name_meteor" type="text">
+        <input class="btn btn-info" type="submit" value="Найти">
+    </form>
+</div>
 <a href="/meteor/meteor-add/" class="btn btn-success">Добавить метеорит</a>
+<div class="container">
 <table class="table">
     <tr>
         <th>Название</th>
@@ -17,6 +28,7 @@
         <th>Расположение падения</th>
         <th>Вес</th>
         <th>Цвет</th>
+        <th>Действие</th>
     </tr>
     <tr th:each="el : ${meteor_list}">
         <td th:text="${el.name_meteor}"></td>
@@ -24,8 +36,11 @@
         <td th:text="${el.location_meteor}"></td>
         <td th:text="${el.weight}"></td>
         <td th:text="${el.color_meteor}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="'/meteor/detail/'+${el.UID}">Подробнее...</a>
+        </td>
     </tr>
 </table>
-
+</div>
 </body>
 </html>

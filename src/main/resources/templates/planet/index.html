@@ -9,7 +9,18 @@
 <header th:insert="/fragments/header :: headerMain"></header>
 
 <h1>Список планет</h1>
+<div class="container">
+<form method="get" action="/planet/filter/">
+    <input class="form-control" name="name_planet" type="text">
+    <input class="btn btn-info" type="submit" value="Найти">
+</form>
+<form method="get" action="/planet/filtercontains/">
+    <input class="form-control" name="name_planet" type="text">
+    <input class="btn btn-info" type="submit" value="Найти">
+</form>
+</div>
 <a href="/planet/planet-add/" class="btn btn-success">Добавить планеты</a>
+<div class="container">
 <table class="table">
     <tr>
         <th>Название</th>
@@ -17,6 +28,7 @@
         <th>Спутники</th>
         <th>Скорость вращения</th>
         <th>Средняя температура</th>
+        <th>Действие</th>
     </tr>
     <tr th:each="el : ${planet_list}">
         <td th:text="${el.name_planet}"></td>
@@ -24,8 +36,11 @@
         <td th:text="${el.sputnik_planet}"></td>
         <td th:text="${el.rotation_period}"></td>
         <td th:text="${el.temperature}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="'/planet/detail/'+${el.UID}">Подробнее...</a>
+        </td>
     </tr>
 </table>
-
+</div>
 </body>
 </html>
