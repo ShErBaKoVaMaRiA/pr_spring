@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Star {
@@ -11,8 +14,11 @@ public class Star {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
+    @NotBlank(message =  "Поле не может быть пустым")
     private String name;
+    @NotEmpty(message =  "Поле не может быть пустым")
     private String class_star;
+    @Positive(message="Вес не может быть отрицательным")
     private Integer lumen;
 
     public Star() {

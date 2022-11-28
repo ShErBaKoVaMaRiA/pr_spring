@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Planet {
@@ -11,10 +12,15 @@ public class Planet {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
+    @NotEmpty(message =  "Поле не может быть пустым")
     private String name_planet;
+    @Positive(message="Вес не может быть отрицательным")
     private float weight_planet;
+    @NotNull(message =  "Поле не может быть пустым")
     private String sputnik_planet;
+    @NotBlank(message =  "Поле не может быть пустым")
     private String rotation_period;
+    @Min(value = -900,message = "Число должно быть больше -900 градусов")
     private float temperature;
 
     public Planet() {

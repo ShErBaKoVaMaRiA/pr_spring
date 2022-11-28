@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Meteor {
@@ -11,10 +14,15 @@ public class Meteor {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
+    @NotEmpty(message =  "Поле не может быть пустым")
     private String name_meteor;
+    @NotEmpty(message =  "Поле не может быть пустым")
     private String class_meteor;
+    @Size(min=2,max=255, message="Размер данного поля должен быть в диапозоне от 2 до 255")
     private String location_meteor;
+    @NotBlank(message = "Полене может быть пустям ")
     private String weight;
+    @Size(min=2,max=255, message="Размер данного поля должен быть в диапозоне от 2 до 255")
     private String color_meteor;
 
     public Meteor() {
