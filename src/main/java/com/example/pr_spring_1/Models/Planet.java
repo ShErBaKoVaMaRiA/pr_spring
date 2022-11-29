@@ -14,6 +14,7 @@ public class Planet {
     private Long UID;
     @NotEmpty(message =  "Поле не может быть пустым")
     private String name_planet;
+
     @Positive(message="Вес не может быть отрицательным")
     private float weight_planet;
     @NotNull(message =  "Поле не может быть пустым")

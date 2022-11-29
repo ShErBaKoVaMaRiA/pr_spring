@@ -9,17 +9,27 @@
 <header th:insert="/fragments/header :: headerMain"></header>
 
 <h1>Добавление планеты</h1>
-<form method="post">
-  <p th:text="Название"></p>
-  <input class="form-control" type="text" name="name_planet">
-  <p th:text="Вес"></p>
-  <input class="form-control" type="number" name="weight_planet">
-  <p th:text="Спутники"></p>
-  <input class="form-control" type="text" name="sputnik_planet">
-  <p>Скорость вращения</p>
-  <input class="form-control" type="text" name="rotation_period">
-  <p>Средняя температура</p>
-  <input class="form-control" type="number" name="temperature">
+<form method="post" th:object="${planet}">
+  <label>Название</label>
+  <input class="form-control" type="text" th:field="*{name_planet}"  name="name_planet">
+  <div th:if="${#fields.hasErrors('name_planet')}" th:errors="*{name_planet}" style="color: red"></div>
+
+  <label>Вес</label>
+  <input class="form-control" type="number" th:field="*{weight_planet}"  name="weight_planet">
+  <div th:if="${#fields.hasErrors('weight_planet')}" th:errors="*{weight_planet}" style="color: red"></div>
+
+  <label>Спутники</label>
+  <input class="form-control" type="text" th:field="*{sputnik_planet}"  name="sputnik_planet">
+  <div th:if="${#fields.hasErrors('sputnik_planet')}" th:errors="*{sputnik_planet}" style="color: red"></div>
+
+  <label>Скорость вращения</label>
+  <input class="form-control" type="text" th:field="*{rotation_period}"  name="rotation_period">
+  <div th:if="${#fields.hasErrors('rotation_period')}" th:errors="*{rotation_period}" style="color: red"></div>
+
+  <label>Средняя температура</label>
+  <input class="form-control" type="number" th:field="*{temperature}"  name="temperature">
+  <div th:if="${#fields.hasErrors('temperature')}" th:errors="*{temperature}" style="color: red"></div>
+
   <input type="submit" value="Добавить планету">
 </form>
 

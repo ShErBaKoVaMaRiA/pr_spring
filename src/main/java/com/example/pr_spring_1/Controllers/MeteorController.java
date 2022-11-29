@@ -6,8 +6,10 @@ import com.example.pr_spring_1.Repository.MeteorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -20,17 +22,17 @@ public class MeteorController {
         Iterable<Meteor> meteorIterable = meteorRepository.findAll();
         model.addAttribute("meteor_list", meteorIterable);
         return "meteor/index";}
-    @PostMapping("/meteor-add/")
-    public String AddMeteor(@RequestParam(name="name_meteor") String name_meteor,
-              @RequestParam(name="class_meteor") String class_meteor,
-              @RequestParam(name="location_meteor") String location_meteor,
-              @RequestParam(name="weight") String weight,
-              @RequestParam(name="color_meteor") String color_meteor)
-    {Meteor new_meteor = new Meteor(name_meteor, class_meteor, location_meteor,weight,color_meteor);
-        meteorRepository.save(new_meteor);
-        return "meteor/meteor-add";}
+
+    @PostMapping("/meteor-add")
+    public String AddMeteor(@Valid Meteor meteor, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "meteor/meteor-add";
+        }
+        meteorRepository.save(meteor);
+        return "redirect:/meteor/";
+    }
     @GetMapping("/meteor-add/")
-    public String AddView(){
+    public String AddView(Meteor meteor){
         return "meteor/meteor-add";
     }
 
@@ -68,27 +70,20 @@ public class MeteorController {
         return "redirect:/meteor/";
     }
     @GetMapping ("/detail/{id}/upd")
-    public String  updateView(@PathVariable Long id,Model model)
+    public String  updateView(@PathVariable Long id,Meteor meteor,Model model)
     {
-        model.addAttribute("object",meteorRepository.findById(id).orElseThrow());
+        meteor = meteorRepository.findById(id).orElseThrow();
+        model.addAttribute("meteor",meteor);
         return "meteor/meteor-update";
     }
     @PostMapping ("/detail/{id}/upd")
-    public String  update(@PathVariable Long id,@RequestParam String name_meteor, @RequestParam String class_meteor,
-                          @RequestParam String location_meteor, @RequestParam String weight,
-                          @RequestParam String color_meteor)
-    {
-        Meteor meteor = meteorRepository.findById(id).orElseThrow();
-
-        meteor.setName_meteor(name_meteor);
-        meteor.setClass_meteor(class_meteor);
-        meteor.setLocation_meteor(location_meteor);
-        meteor.setWeight(weight);
-        meteor.setColor_meteor(color_meteor);
+    public String update(@Valid Meteor meteor, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "meteor/meteor-update";
+        }
 
         meteorRepository.save(meteor);
         return "redirect:/meteor/detail/"+meteor.getUID();
     }
-
 
 }

@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -21,18 +23,26 @@ public class PlanetController {
         Iterable<Planet> planetIterable = planetRepository.findAll();
         model.addAttribute("planet_list", planetIterable);
         return "planet/index";}
-    @PostMapping("/planet-add/")
-    public String AddPlanet(
-            @RequestParam(name="name_planet") String name_planet,
-            @RequestParam(name="weight_planet") float weight_planet,
-            @RequestParam(name="sputnik_planet") String sputnik_planet,
-            @RequestParam(name="rotation_period") String rotation_period,
-            @RequestParam(name="temperature") float temperature){
-        Planet new_planet = new Planet(name_planet, weight_planet, sputnik_planet,rotation_period,temperature);
-        planetRepository.save(new_planet);
-        return "planet/planet-add";}
+//    @PostMapping("/planet-add/")
+//    public String AddPlanet(
+//            @RequestParam(name="name_planet") String name_planet,
+//            @RequestParam(name="weight_planet") float weight_planet,
+//            @RequestParam(name="sputnik_planet") String sputnik_planet,
+//            @RequestParam(name="rotation_period") String rotation_period,
+//            @RequestParam(name="temperature") float temperature){
+//        Planet new_planet = new Planet(name_planet, weight_planet, sputnik_planet,rotation_period,temperature);
+//        planetRepository.save(new_planet);
+//        return "planet/planet-add";}
+    @PostMapping("/planet-add")
+    public String AddPlanet(@Valid Planet planet, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "planet/planet-add";
+        }
+        planetRepository.save(planet);
+        return "redirect:/planet/";
+    }
     @GetMapping("/planet-add/")
-    public String AddView(){
+    public String AddView(Planet planet){
         return "planet/planet-add";
     }
 
@@ -72,21 +82,18 @@ public class PlanetController {
         return "redirect:/planet/";
     }
     @GetMapping ("/detail/{id}/upd")
-    public String  updateView(@PathVariable Long id,Model model)
+    public String  updateView(@PathVariable Long id,Planet planet,Model model)
     {
-        model.addAttribute("object",planetRepository.findById(id).orElseThrow());
+        planet = planetRepository.findById(id).orElseThrow();
+        model.addAttribute("planet",planet);
         return "planet/planet-update";
     }
-    @PostMapping ("/detail/{id}/upd")
-    public String  update(@PathVariable Long id,@RequestParam String name_planet, @RequestParam float weight_planet, @RequestParam String sputnik_planet, @RequestParam String rotation_period, @RequestParam float temperature)
-    {
-        Planet planet = planetRepository.findById(id).orElseThrow();
 
-        planet.setName_planet(name_planet);
-        planet.setSputnik_planet(sputnik_planet);
-        planet.setWeight_planet(weight_planet);
-        planet.setRotation_period(rotation_period);
-        planet.setTemperature(temperature);
+    @PostMapping ("/detail/{id}/upd")
+    public String update(@Valid Planet planet, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "planet/planet-update";
+        }
 
         planetRepository.save(planet);
         return "redirect:/planet/detail/"+planet.getUID();
