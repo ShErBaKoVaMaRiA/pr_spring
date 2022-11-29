@@ -8,16 +8,19 @@
 <body>
 <header th:insert="/fragments/header :: headerMain"></header>
 
-
 <h1>Добавление звёзд</h1>
-<form method="post">
-    <p th:text="Название"></p>
-    <input class="form-control" type="text" name="name">
-    <p th:text="Класс"></p>
-    <input class="form-control" type="text" name="class_star">
-    <p th:text="Люмен"></p>
-    <input class="form-control" type="number" name="lumen">
-    <input type="submit" value="Добавить звезду">
+<form method="post" th:object="${star}">
+    <label>Название</label>
+    <input class="form-control" type="text" th:field="*{name}"  name="name">
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></div>
+    <label>Класс</label>
+    <input class="form-control" type="text" th:field="*{class_star}" name="class_star">
+    <div th:if="${#fields.hasErrors('class_star')}" th:errors="*{class_star}" style="color: red"></div>
+    <label>Люмен</label>
+    <input class="form-control" type="number" th:field="*{lumen}" name="lumen">
+    <div th:if="${#fields.hasErrors('lumen')}" th:errors="*{lumen}" style="color: red"></div>
+    <input class="btn btn-success" type="submit" value="Добавить звезду">
+
 </form>
 </body>
 </html>

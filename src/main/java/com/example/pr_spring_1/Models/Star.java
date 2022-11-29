@@ -18,7 +18,7 @@ public class Star {
     private String name;
     @NotEmpty(message =  "Поле не может быть пустым")
     private String class_star;
-    @Positive(message="Вес не может быть отрицательным")
+    @Positive(message="Свет не может быть отрицательным")
     private Integer lumen;
 
     public Star() {

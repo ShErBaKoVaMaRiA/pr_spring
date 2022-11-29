@@ -5,8 +5,10 @@ import com.example.pr_spring_1.Repository.StarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,17 +22,27 @@ public class StarController {
         Iterable<Star> starIterable = starRepository.findAll();
         model.addAttribute("star_list", starIterable);
         return "star/index";}
-    @PostMapping("/star-add/")
-    public String AddStar(
-            @RequestParam(name="name") String name,
-            @RequestParam(name="class_star") String class_star,
-            @RequestParam(name="lumen") int lumen){
-        Star new_star = new Star(name, class_star, lumen);
-        starRepository.save(new_star);
-        return "redirect:/star/";}
-    @GetMapping("/star-add/")
-    public String AddView(){
-        return "star/star-add";}
+//    @PostMapping("/star-add/")
+//    public String AddStar(
+//            @RequestParam(name="name") String name,
+//            @RequestParam(name="class_star") String class_star,
+//            @RequestParam(name="lumen") int lumen){
+//        Star new_star = new Star(name, class_star, lumen);
+//        starRepository.save(new_star);
+//        return "redirect:/star/";}//, @PathVariable("UID") int uid
+
+    @PostMapping("/star-add")
+    public String AddStar(@Valid Star star, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "star/star-add";
+        }
+        starRepository.save(star);
+        return "redirect:/star/";
+    }
+    @GetMapping ("/star-add")
+    public String AddView(Star star){
+        return "star/star-add";
+    }
     @GetMapping("/filter/")
     public String filter(
             @RequestParam(name="name") String name,
@@ -67,19 +79,17 @@ public class StarController {
         return "redirect:/star/";
     }
     @GetMapping ("/detail/{id}/upd")
-    public String  updateView(@PathVariable Long id,Model model)
+    public String  updateView(@PathVariable Long id, Star star, Model model)
     {
-        model.addAttribute("object",starRepository.findById(id).orElseThrow());
+        star = starRepository.findById(id).orElseThrow();
+        model.addAttribute("star",star);
         return "star/star-update";
     }
     @PostMapping ("/detail/{id}/upd")
-    public String  update(@PathVariable Long id,@RequestParam String name, @RequestParam String class_star, @RequestParam Integer lumen)
-    {
-        Star star = starRepository.findById(id).orElseThrow();
-
-        star.setName(name);
-        star.setClass_star(class_star);
-        star.setLumen(lumen);
+    public String update(@Valid Star star, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "star/star-update";
+        }
 
         starRepository.save(star);
         return "redirect:/star/detail/"+star.getUID();
