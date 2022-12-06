@@ -35,13 +35,6 @@ public class MeteorsController {
         return "meteor_planet";
     }
 
-//    @GetMapping("/meteors/add")
-//    public String Mains(Model model) {
-//        Iterable<Planet> planet = planetRepository.findAll();
-//        model.addAttribute("planetname", planet);
-//        return "meteor_planet";
-//    }
-
 
     @PostMapping("/meteors/add")
     public String blogPostAdd(@RequestParam String name,  @RequestParam String planetname, Model model)
