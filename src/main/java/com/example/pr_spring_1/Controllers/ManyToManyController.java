@@ -9,6 +9,7 @@ import com.example.pr_spring_1.Repository.MeteorRepository;
 import com.example.pr_spring_1.Repository.PlanetRepository;
 import com.example.pr_spring_1.Repository.StarsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+
 public class ManyToManyController {
     @Autowired
     public PlanetRepository planetRepository;

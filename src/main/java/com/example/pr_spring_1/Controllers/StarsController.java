@@ -5,6 +5,7 @@ import com.example.pr_spring_1.Models.Stars;
 import com.example.pr_spring_1.Repository.ConstellationsRepository;
 import com.example.pr_spring_1.Repository.StarsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.Console;
 
 @Controller
+@PreAuthorize("hasAnyAuthority('EDITOR')")
 public class StarsController {
     @Autowired
     public ConstellationsRepository constellationsRepository;
