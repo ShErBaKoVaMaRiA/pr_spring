@@ -9,7 +9,7 @@
 <header th:insert="/fragments/header :: header_meteorMain"></header>
 
 <div class="container">
-  <h1 th:text="'Метеорит '+${one_meteor.name_meteor}"></h1>
+  <h1 th:text="'Метеорит '+${one_meteor.name}"></h1>
   <div class="container">
     <h2 th:text="'Класс метеоритов: '+${one_meteor.getClass_meteor()}"></h2>
     <p th:text="'Расположение: '+${one_meteor.getLocation_meteor()}"></p>

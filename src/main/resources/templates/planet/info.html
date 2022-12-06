@@ -9,7 +9,7 @@
 <header th:insert="/fragments/header :: header_planetMain"></header>
 
 <div class="container">
-  <h1 th:text="'Планета '+${one_planet.name_planet}"></h1>
+  <h1 th:text="'Планета '+${one_planet.name}"></h1>
   <div class="container">
     <h2 th:text="'Спутники планеты: '+${one_planet.getSputnik_planet()}"></h2>
     <p th:text="'Масса планеты: '+${one_planet.getWeight_planet()}"></p>

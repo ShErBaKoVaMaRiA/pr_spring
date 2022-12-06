@@ -14,8 +14,8 @@
 
   <form method="post" th:object="${planet}">
     <label>Название</label>
-    <input class="form-control" type="text" th:field="*{name_planet}"  name="name_planet">
-    <div th:if="${#fields.hasErrors('name_planet')}" th:errors="*{name_planet}" style="color: red"></div>
+    <input class="form-control" type="text" th:field="*{name}"  name="name">
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></div>
 
     <label>Вес</label>
     <input class="form-control" type="number" th:field="*{weight_planet}"  name="weight_planet">

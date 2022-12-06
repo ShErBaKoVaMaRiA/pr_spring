@@ -1,8 +1,11 @@
 package com.example.pr_spring_1.Controllers;
 
+import com.example.pr_spring_1.Models.Meteor;
 import com.example.pr_spring_1.Models.Planet;
 import com.example.pr_spring_1.Models.Star;
+import com.example.pr_spring_1.Repository.MeteorRepository;
 import com.example.pr_spring_1.Repository.PlanetRepository;
+import com.example.pr_spring_1.Repository.StarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.stereotype.Controller;
@@ -11,11 +14,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/planet")
 public class PlanetController {
+
     @Autowired
     PlanetRepository planetRepository;
     @GetMapping("/")
@@ -23,16 +28,7 @@ public class PlanetController {
         Iterable<Planet> planetIterable = planetRepository.findAll();
         model.addAttribute("planet_list", planetIterable);
         return "planet/index";}
-//    @PostMapping("/planet-add/")
-//    public String AddPlanet(
-//            @RequestParam(name="name_planet") String name_planet,
-//            @RequestParam(name="weight_planet") float weight_planet,
-//            @RequestParam(name="sputnik_planet") String sputnik_planet,
-//            @RequestParam(name="rotation_period") String rotation_period,
-//            @RequestParam(name="temperature") float temperature){
-//        Planet new_planet = new Planet(name_planet, weight_planet, sputnik_planet,rotation_period,temperature);
-//        planetRepository.save(new_planet);
-//        return "planet/planet-add";}
+
     @PostMapping("/planet-add")
     public String AddPlanet(@Valid Planet planet, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -46,24 +42,6 @@ public class PlanetController {
         return "planet/planet-add";
     }
 
-
-
-//    @GetMapping("/filter/")
-//    public String filter(
-//            @RequestParam(name="name") String name,
-//            Model model){
-//        List<Planet> planetList = planetRepository.findByName_planet(name);
-//        model.addAttribute("planet_list", planetList);
-//        return"planet/index";
-//    }
-//    @GetMapping("/filtercontains/")
-//    public String filterContains(
-//            @RequestParam(name="name") String name,
-//            Model model){
-//        List<Planet> planetList = planetRepository.findByName_planetContains(name);
-//        model.addAttribute("planet_list", planetList);
-//        return"planet/index";
-//    }
 
     @GetMapping("/detail/{id}")
     public String detailPlanet(

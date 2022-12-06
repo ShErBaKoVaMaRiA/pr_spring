@@ -9,23 +9,17 @@
 <header th:insert="/fragments/header :: headerMain"></header>
 
 <h1>Добавление метеорита</h1>
-<form method="post" th:object="${meteor}">
-  <label>Название</label>
-  <input class="form-control" type="text" th:field="*{name_meteor}"  name="name_meteor">
-  <div th:if="${#fields.hasErrors('name_meteor')}" th:errors="*{name_meteor}" style="color: red"></div>
-  <label>Класс</label>
-  <input class="form-control" type="text" th:field="*{class_meteor}"  name="class_meteor">
-  <div th:if="${#fields.hasErrors('class_meteor')}" th:errors="*{class_meteor}" style="color: red"></div>
-  <label>Место падения</label>
-  <input class="form-control" type="text" th:field="*{location_meteor}"  name="location_meteor">
-  <div th:if="${#fields.hasErrors('location_meteor')}" th:errors="*{location_meteor}" style="color: red"></div>
-  <label>Вес</label>
-  <input class="form-control" type="text" th:field="*{weight}"  name="weight">
-  <div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" style="color: red"></div>
-  <label>Цвет</label>
-  <input class="form-control" type="text" th:field="*{color_meteor}"  name="color_meteor">
-  <div th:if="${#fields.hasErrors('color_meteor')}" th:errors="*{color_meteor}" style="color: red"></div>
-
+<form method="post">
+  <p th:text="Название"></p>
+  <input class="form-control" type="text" name="name">
+  <p th:text="Класс"></p>
+  <input class="form-control" type="text" name="class_meteor">
+  <p>Место падения</p>
+  <input class="form-control" type="text" name="location_meteor">
+  <p th:text="Вес"></p>
+  <input class="form-control" type="text" name="weight">
+  <p th:text="Цвет"></p>
+  <input class="form-control" type="text" name="color_meteor">
   <input type="submit" value="Добавить метеорит">
 </form>
 

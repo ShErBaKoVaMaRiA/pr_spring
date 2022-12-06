@@ -1,10 +1,8 @@
 package com.example.pr_spring_1.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 public class Planet {
@@ -13,7 +11,7 @@ public class Planet {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
     @NotEmpty(message =  "Поле не может быть пустым")
-    private String name_planet;
+    private String name;
 
     @Positive(message="Вес не может быть отрицательным")
     private float weight_planet;
@@ -24,15 +22,33 @@ public class Planet {
     @Min(value = -900,message = "Число должно быть больше -900 градусов")
     private float temperature;
 
+    @OneToOne(optional = true, mappedBy = "planet")
+    private Meteors meteors;
+
+    @ManyToMany
+    @JoinTable(name="meteor_planet",
+            joinColumns=@JoinColumn(name="meteor_id"),
+            inverseJoinColumns=@JoinColumn(name="planet_id"))
+    private List<Meteor> meteor;
+
+    public List<Meteor> getMeteor() {
+        return meteor;
+    }
+
+    public void setMeteor(List<Meteor> meteor) {
+        this.meteor = meteor;
+    }
+
     public Planet() {
     }
 
     public Planet(String name_planet, float weight_planet, String sputnik_planet, String rotation_period, float temperature) {
-        this.name_planet = name_planet;
+        this.name = name_planet;
         this.weight_planet = weight_planet;
         this.sputnik_planet = sputnik_planet;
         this.rotation_period = rotation_period;
         this.temperature = temperature;
+
     }
 
     public Long getUID() {
@@ -43,12 +59,12 @@ public class Planet {
         this.UID = UID;
     }
 
-    public String getName_planet() {
-        return name_planet;
+    public String getName() {
+        return name;
     }
 
-    public void setName_planet(String name_planet) {
-        this.name_planet = name_planet;
+    public void setName(String name_planet) {
+        this.name = name_planet;
     }
 
     public float getWeight_planet() {
@@ -82,4 +98,16 @@ public class Planet {
     public void setTemperature(float temperature) {
         this.temperature = temperature;
     }
+
+
+    public Meteors getMeteors() {
+        return meteors;
+    }
+
+    public void setMeteors(Meteors meteors) {
+        this.meteors = meteors;
+    }
+
+
+
 }

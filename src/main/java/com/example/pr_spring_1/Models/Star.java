@@ -1,9 +1,6 @@
 package com.example.pr_spring_1.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
@@ -20,7 +17,6 @@ public class Star {
     private String class_star;
     @Positive(message="Свет не может быть отрицательным")
     private Integer lumen;
-
     public Star() {
 
     }
@@ -62,4 +58,5 @@ public class Star {
     public void setLumen(Integer lumen) {
         this.lumen = lumen;
     }
+
 }

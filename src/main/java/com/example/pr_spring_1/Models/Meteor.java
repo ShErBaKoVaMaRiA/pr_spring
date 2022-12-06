@@ -1,12 +1,10 @@
 package com.example.pr_spring_1.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Meteor {
@@ -14,26 +12,40 @@ public class Meteor {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long UID;
-    @NotEmpty(message =  "Поле не может быть пустым")
-    private String name_meteor;
-    @NotEmpty(message =  "Поле не может быть пустым")
+
+    private String name;
+
     private String class_meteor;
-    @Size(min=2,max=255, message="Размер данного поля должен быть в диапозоне от 2 до 255")
+
     private String location_meteor;
-    @NotBlank(message = "Полене может быть пустям ")
+
     private String weight;
-    @Size(min=2,max=255, message="Размер данного поля должен быть в диапозоне от 2 до 255")
+
     private String color_meteor;
 
+    @ManyToMany
+    @JoinTable(name="meteor_planet",
+            joinColumns=@JoinColumn(name="meteor_id"),
+            inverseJoinColumns=@JoinColumn(name="planet_id"))
+    private List<Planet> planet;
+
+    public List<Planet> getPlanet() {
+        return planet;
+    }
+
+    public void setPlanet(List<Planet> planet) {
+        this.planet = planet;
+    }
     public Meteor() {
     }
 
     public Meteor(String name_meteor, String class_meteor, String location_meteor, String weight, String color_meteor) {
-        this.name_meteor = name_meteor;
+        this.name = name_meteor;
         this.class_meteor = class_meteor;
         this.location_meteor = location_meteor;
         this.weight = weight;
         this.color_meteor = color_meteor;
+
     }
 
     public Long getUID() {
@@ -44,12 +56,12 @@ public class Meteor {
         this.UID = UID;
     }
 
-    public String getName_meteor() {
-        return name_meteor;
+    public String getName() {
+        return name;
     }
 
-    public void setName_meteor(String name_meteor) {
-        this.name_meteor = name_meteor;
+    public void setName(String name_meteor) {
+        this.name = name_meteor;
     }
 
     public String getClass_meteor() {
@@ -83,4 +95,5 @@ public class Meteor {
     public void setColor_meteor(String color_meteor) {
         this.color_meteor = color_meteor;
     }
+
 }
